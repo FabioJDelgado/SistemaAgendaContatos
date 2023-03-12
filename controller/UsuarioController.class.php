@@ -50,7 +50,7 @@
                     $this->cadastrar();
                 break;
                 case 'logar':
-                    $this->cadastrar();
+                    $this->logar();
                 break;
                 // poderiam existir outras ações a serem executadas com POST
                 default:
@@ -93,10 +93,10 @@
         public function logar() {
             try {
                 extract($_POST);
-                // variaveis $_acao, $nome, $categoria e $quantidade
+                // variaveis $_acao, $login, $senha
                 $usuario = new Usuario(0, [], "", $login, $senha, "");
                 $usuarioDb = $this->daoUsuario->buscarUsuarioLogin($usuario->get('login'), $usuario->get('senha'));
-                if (!$usuarioDb) {
+                if ($usuarioDb) {
                     echo json_encode($usuarioDb);            
                 } else {
                     echo json_encode(array('message' => 'Login e/ou senha estão incorretos.', 'status_code' => 0));

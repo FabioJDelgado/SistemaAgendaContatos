@@ -1,0 +1,23 @@
+.fundo-tela{
+    background-color: aliceblue;
+}
+
+.box-login{
+    background-color: white;
+    border-radius: 2px;
+    max-width: 600px;
+    max-height: 400px;
+    margin: 8% auto;
+}
+
+.form-login{
+    padding: 0 30px 20px 30px;
+}
+
+.a-cadastro{
+    float: right;
+}
+
+img{
+    margin-top: 10px;
+}

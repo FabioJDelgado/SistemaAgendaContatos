@@ -11,6 +11,7 @@
     <!-- Favicon -->
     <link rel="icon" href=<?php echo '"'.GlobalConfig::$DEFAULT_DIR.'/'.GlobalConfig::$ASSETS_DIR.'/'.'favicon.ico"'; ?> >   
 
+    <link rel="stylesheet" href="../public/css/geral.css">
     <link rel="stylesheet" href="../public/css/login.css">
 
     <!-- Bootstrap CDN CSS -->    

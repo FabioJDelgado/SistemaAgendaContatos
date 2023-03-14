@@ -97,7 +97,8 @@
                 $usuario = new Usuario(0, [], "", $login, $senha, "");
                 $usuarioDb = $this->daoUsuario->buscarUsuarioLogin($usuario->get('login'), $usuario->get('senha'));
                 if ($usuarioDb) {
-                    echo json_encode($usuarioDb);            
+                    //$usuarioBanco = new Usuario($usuarioDb[0]['idUsuario'], [], $usuarioDb[0]['nome'], $usuarioDb[0]['login'], $usuarioDb[0]['senha'], $usuarioDb[0]['foto']);
+                    echo json_encode($usuarioDb);          
                 } else {
                     echo json_encode(array('message' => 'Login e/ou senha estão incorretos.', 'status_code' => 0));
                 }                

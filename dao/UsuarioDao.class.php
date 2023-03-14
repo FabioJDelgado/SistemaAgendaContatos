@@ -120,7 +120,7 @@
 
             try {
                 // query
-                $query = "SELECT nome FROM produto WHERE ".$field." = :".$field;
+                $query = "SELECT nome FROM usuario WHERE ".$field." = :".$field;
                 // fields to bind
                 $fields = array (':'.$field => $value);                
 

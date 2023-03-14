@@ -18,7 +18,9 @@
 
     <title>SisAg - Sistema de Agenda</title>
 </head>
-<body>
+<body class="fundo-tela">
+
+    
 
     <!-- Jquery -->
     <?php echo GlobalConfig::$JQUERY_CDN ?>

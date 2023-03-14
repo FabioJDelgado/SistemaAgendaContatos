@@ -1,0 +1,23 @@
+.box-cad-usuario{
+    background-color: white;
+    border-radius: 2px;
+    max-width: 800px;
+    max-height: 600px;
+    margin: 8% auto;
+}
+
+.form-cad-usuario{
+    padding: 0 30px 20px 30px;
+}
+
+.input-file{
+    width: 50%;
+}
+
+.a-cadastro{
+    float: right;
+}
+
+img{
+    margin-top: 10px;
+}

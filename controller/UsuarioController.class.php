@@ -4,6 +4,8 @@
     // dao
     include_once '../dao/UsuarioDao.class.php';
 
+    include_once '../config/GlobalConfig.php';
+
    try {
         $usuarioController = new UsuarioController();
         $usuarioController->handleRequest();
@@ -71,17 +73,23 @@
 
         public function cadastrar() {
             try {
-                extract($_POST);
-                // variaveis $_acao, $nome, $categoria e $quantidade
-                $usuario = new Usuario(0, [], $nome, $login, $senha, $foto);
-                if (!$this->daoUsuario->usuarioExiste('login', $usuario->get('login'))) {
+                extract($_POST);                
+                if (!$this->daoUsuario->usuarioExiste('login', $login)) {
 
-                    if($this->daoUsuario->cadastrarUsuario($usuario)) {
-                        echo json_encode(array('message' => 'Cadastro realizado com sucesso!', 'status_code' => 1));
-                    } else {
-                        echo json_encode(array('message' => 'Ocorreu um erro ao tentar realizar o cadastro.', 'status_code' => 0));
+                    $retUploadFoto = $this->uploadFoto($_FILES['foto'], $login);
+
+                    if(isset($retUploadFoto)){
+                        
+                        $usuario = new Usuario(0, [], $nome, $login, $senha, $retUploadFoto);
+
+                        if($this->daoUsuario->cadastrarUsuario($usuario)) {
+                            echo json_encode(array('message' => 'Cadastro realizado com sucesso!', 'status_code' => 1));
+                        } else {
+                            echo json_encode(array('message' => 'Ocorreu um erro ao tentar realizar o cadastro.', 'status_code' => 0));
+                        }
+                    } else{
+                        echo json_encode(array('message' => 'Ocorreu um erro ao tentar realizar o upload da foto.', 'status_code' => 0));
                     }
-
                 } else {
                     echo json_encode(array('message' => 'Usuário já cadastro.<br>Escolha outro login.', 'status_code' => 0));
                 }                
@@ -105,6 +113,55 @@
             } catch (Exception $ex) {
                 echo json_encode(array('message' => 'Uma exceção ocorreu ao tentar buscar o usuário.<br> Mensagem: '.$ex->getMessage(), 'status_code' => 0));
             }
+        }
+
+        public function uploadFotl($foto, $login){
+
+            $target_dir = GlobalConfig::$DEFAULT_UPLOAD_DIR_USUARIO;
+            $nomeFoto = basename($foto["name"]) . $login;
+            $target_file = $target_dir . $nomeFoto;
+            $retorno = "";
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+            // Check if image file is a actual image or fake image
+            //if(isset($_POST["submit"])) {
+                $check = getimagesize($foto["tmp_name"]);
+                if($check !== false) {
+                    $uploadOk = 1;
+                } else {
+                    $uploadOk = 0;
+                }
+            //}
+            
+            // Check if file already exists
+            if (file_exists($target_file)) {
+                $uploadOk = 0;
+            }
+            
+            // Check file size
+            if ($foto["size"] > 500000) {
+                $uploadOk = 0;
+            }
+            
+            // Allow certain file formats
+            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                $uploadOk = 0;
+            }
+            
+            // Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) {
+                $retorno = "";
+            // if everything is ok, try to upload file
+            } else {
+                if (move_uploaded_file($foto["tmp_name"], $target_file)) {
+                    $retorno = $target_file;
+                } else {
+                    $retorno = "";
+                }
+            }
+
+            return $retorno;
         }
 
         /*public function buscarTodosProdutos() {

@@ -5,7 +5,8 @@
     if(!isset($_SESSION['idUsuario']) || !isset($_SESSION['nomeUsuario'])) {
         header('Location: http://localhost/sisag/view/login.php');
     }
-    $userName = $_SESSION['nomeUsuario'];
+    $userNome = $_SESSION['nomeUsuario'];
+    $userFoto = $_SESSION['fotoUsuario'];
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +19,7 @@
     <link rel="icon" href=<?php echo '"'.GlobalConfig::$DEFAULT_DIR.'/'.GlobalConfig::$ASSETS_DIR.'/'.'favicon.ico"'; ?> >   
 
     <link rel="stylesheet" href="../public/css/geral.css">
+    <link rel="stylesheet" href="../public/css/boas-vindas.css">
 
     <!-- Bootstrap CDN CSS -->    
     <?php echo GlobalConfig::$BOOTSTRAP_CSS_CDN ?>
@@ -25,26 +27,19 @@
     <title>SisAg - Sistema de Agenda</title>
 </head>
 <body class="fundo-tela">
-
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1>Bem vindo, <?php echo $userName; ?>!</h1>
-            </div>
+    <div class="box-interno">
+        <div>
+            <!-- Header include -->
+            <?php include_once './header.php'?>
         </div>
+        <hr>
+        
+        <h4 class="text-center msg-inicial">Sistema de Agenda</h4>
+        
     </div>
 
+    <!-- Footer include -->
+    <?php include_once  './footer.php'?>
 
-    <!-- Jquery -->
-    <?php echo GlobalConfig::$JQUERY_CDN ?>
-    
-    <!-- Bootstrap Js -->
-    <?php echo GlobalConfig::$BOOTSTRAP_JS_CDN ?>
-
-    <!-- Fontawesome Js -->
-    <?php echo GlobalConfig::$FONTAWESOME_CDN ?>
-
-    <!-- Pooper -->
-    <?php echo GlobalConfig::$POOPER_JS_CDN ?>
 </body>
 </html>

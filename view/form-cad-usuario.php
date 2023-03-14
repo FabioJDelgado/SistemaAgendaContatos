@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label for="foto">Foto</label>
-                <input type="file" class="form-control input-file" id="foto" name="foto" required="true">
+                <input type="file" class="form-control input-file" id="foto" name="foto" required="true" accept="image/png,image/jpeg,image/jpg">
             </div>
             <input hidden type="text" name="_acao" value="cadastrar">
             <button type="submit" class="btn btn-primary" id="btnCadastrar">Cadastrar</button>
@@ -52,17 +52,8 @@
         </form>
     </div>
 
-    <!-- Jquery -->
-    <?php echo GlobalConfig::$JQUERY_CDN ?>
-    
-    <!-- Bootstrap Js -->
-    <?php echo GlobalConfig::$BOOTSTRAP_JS_CDN ?>
-
-    <!-- Fontawesome Js -->
-    <?php echo GlobalConfig::$FONTAWESOME_CDN ?>
-
-    <!-- Pooper -->
-    <?php echo GlobalConfig::$POOPER_JS_CDN ?>
+    <!-- Footer include -->
+    <?php include_once  './footer.php'?>
 
     <script src="../public/js/form-cad-usuario.js"></script>
 </body>

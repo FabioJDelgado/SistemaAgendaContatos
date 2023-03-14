@@ -24,11 +24,12 @@ function logar(event){
 };
 
 function successLogin(response){
+    console.log(response[0].foto);
     const controllerUrl = "../util/autenticacao.php";
     $.ajax({
         url: controllerUrl,
         type: "POST",
-        data: {idUsuario: response[0].idUsuario, nome: response[0].nome},   
+        data: {idUsuario: response[0].idUsuario, nome: response[0].nome, foto: response[0].foto},   
         success: successSession,
         error: errorSession
     });

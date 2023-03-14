@@ -77,8 +77,8 @@
                 if (!$this->daoUsuario->usuarioExiste('login', $login)) {
 
                     $retUploadFoto = $this->uploadFoto($_FILES['foto'], $login);
-
-                    if(isset($retUploadFoto)){
+                    
+                    if(!(empty($retUploadFoto))){
                         
                         $usuario = new Usuario(0, [], $nome, $login, $senha, $retUploadFoto);
 
@@ -115,52 +115,53 @@
             }
         }
 
-        public function uploadFotl($foto, $login){
+        public function uploadFoto($foto, $login){
+            try{
+                $target_dir = GlobalConfig::$DEFAULT_UPLOAD_DIR_USUARIO;
+                $target_file = $target_dir . $login . "-" . basename($foto["name"]);
+                $retorno = "";
+                $uploadOk = 1;
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-            $target_dir = GlobalConfig::$DEFAULT_UPLOAD_DIR_USUARIO;
-            $nomeFoto = basename($foto["name"]) . $login;
-            $target_file = $target_dir . $nomeFoto;
-            $retorno = "";
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-            // Check if image file is a actual image or fake image
-            //if(isset($_POST["submit"])) {
-                $check = getimagesize($foto["tmp_name"]);
-                if($check !== false) {
-                    $uploadOk = 1;
-                } else {
+                // Check if image file is a actual image or fake image
+                if(isset($_POST["submit"])) {
+                    $check = getimagesize($foto["tmp_name"]);
+                    if($check !== false) {
+                        $uploadOk = 1;
+                    } else {
+                        $uploadOk = 0;
+                    }
+                }
+                
+                // Check if file already exists
+                if (file_exists($target_file)) {
                     $uploadOk = 0;
                 }
-            //}
-            
-            // Check if file already exists
-            if (file_exists($target_file)) {
-                $uploadOk = 0;
-            }
-            
-            // Check file size
-            if ($foto["size"] > 500000) {
-                $uploadOk = 0;
-            }
-            
-            // Allow certain file formats
-            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                $uploadOk = 0;
-            }
-            
-            // Check if $uploadOk is set to 0 by an error
-            if ($uploadOk == 0) {
-                $retorno = "";
-            // if everything is ok, try to upload file
-            } else {
-                if (move_uploaded_file($foto["tmp_name"], $target_file)) {
-                    $retorno = $target_file;
-                } else {
-                    $retorno = "";
+                
+                // Check file size
+                if ($foto["size"] > 500000) {
+                    $uploadOk = 0;
                 }
+                
+                // Allow certain file formats
+                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                    $uploadOk = 0;
+                }
+                
+                // Check if $uploadOk is set to 0 by an error
+                if ($uploadOk == 0) {
+                    $retorno = "";
+                // if everything is ok, try to upload file
+                } else {
+                    if (move_uploaded_file($foto["tmp_name"], $target_file)) {
+                        $retorno = $target_file;
+                    } else {
+                        $retorno = "";
+                    }
+                }
+            } catch(Exception $ex){
+                echo json_encode(array('message' => 'Uma exceção ocorreu ao tentar fazer o processamento da foto.<br> Mensagem: '.$ex->getMessage(), 'status_code' => 0));
             }
-
             return $retorno;
         }
 

@@ -1,3 +1,16 @@
 .fundo-tela{
     background-color: aliceblue;
 }
+
+.div-header{
+    display: flex;
+    justify-content: space-between
+}
+
+.box-interno{
+    background-color: white;
+    border-radius: 2px;
+    max-width: 1000px;
+    min-height: 250px;
+    margin: 5px auto;
+}

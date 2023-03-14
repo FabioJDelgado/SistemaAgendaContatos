@@ -20,18 +20,7 @@
 </head>
 <body class="fundo-tela">
 
-    
-
-    <!-- Jquery -->
-    <?php echo GlobalConfig::$JQUERY_CDN ?>
-    
-    <!-- Bootstrap Js -->
-    <?php echo GlobalConfig::$BOOTSTRAP_JS_CDN ?>
-
-    <!-- Fontawesome Js -->
-    <?php echo GlobalConfig::$FONTAWESOME_CDN ?>
-
-    <!-- Pooper -->
-    <?php echo GlobalConfig::$POOPER_JS_CDN ?>
+    <!-- Footer include -->
+    <?php include_once  './footer.php'?>
 </body>
 </html>

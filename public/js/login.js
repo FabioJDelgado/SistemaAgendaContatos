@@ -24,19 +24,23 @@ function logar(event){
 };
 
 function successLogin(response){
-    console.log(response[0].foto);
-    const controllerUrl = "../util/autenticacao.php";
-    $.ajax({
-        url: controllerUrl,
-        type: "POST",
-        data: {idUsuario: response[0].idUsuario, nome: response[0].nome, foto: response[0].foto},   
-        success: successSession,
-        error: errorSession
-    });
+    if(response.status_code == 0){
+        console.log(response.message);
+    } else{
+        const controllerUrl = "../util/autenticacao.php";
+        $.ajax({
+            url: controllerUrl,
+            type: "POST",
+            data: {idUsuario: response[0].idUsuario, nome: response[0].nome, foto: response[0].foto},   
+            success: successSession,
+            error: errorSession
+        });
+    }
 }
 
 function errorLogin(response){
     console.log(response);
+    //colocar aqui um modal de alerta de erro no login
 }
 
 function successSession(response){
@@ -45,9 +49,11 @@ function successSession(response){
         window.location.href = "../view/boas-vindas.php";
     } else{
         console.log(session);
+        //colocar aqui um modal de alerta de insucesso
     }    
 }
 
 function errorSession(response){
     console.log(response);
+    //colocar aqui um modal de alerta de erro
 }

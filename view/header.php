@@ -2,15 +2,17 @@
   <div class="container d-flex flex-column flex-md-row justify-content-between">
     <div class="div-header">
         <div>
-            <img src="../public/assets/sisag-logo.png" alt="" width="55" height="55">
-            <h5>SisAg</h5>
+            <a href="./boas-vindas.php">
+                <img src="../public/assets/sisag-logo.png" alt="" width="55" height="55">
+                <h5>SisAg</h5>
+            </a>
         </div>
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Cadastrar Contato</a>
+                <a class="nav-link" href="./form-cad-contato.php">Cadastrar Contato</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Listar Contatos</a>
+                <a class="nav-link" href="./lista-contatos.php">Listar Contatos</a>
             </li>
             </li>
         </ul>

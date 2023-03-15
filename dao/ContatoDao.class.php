@@ -19,7 +19,7 @@
             $retorno  = false;
             try {
                 // query
-                $query = "INSERT INTO usuario(idUsuario, nome, telefone, email, foto) VALUES(:idUsuario, :nome, :telefone, :email, :foto)";
+                $query = "INSERT INTO contato(idUsuario, nome, telefone, email, foto) VALUES(:idUsuario, :nome, :telefone, :email, :foto)";
                 // fields to bind
                 $fields = array (
                  ':idUsuario' => $idUsuario, 
@@ -115,15 +115,20 @@
          * @param $value: valor
          * @return boolean: Retorna true se o objeto com o valor equivalente ao campo existe, false caso contrário
          */
-        /*public function usuarioExiste($field, $value) {
+        public function contatoUsuarioExiste($idUsuario, $nome, $telefone, $email) {
             $arr = [];
             $retorno  = false;
 
             try {
                 // query
-                $query = "SELECT nome FROM produto WHERE ".$field." = :".$field;
+                $query = "SELECT nome FROM contato WHERE idUsuario = :idUsuario AND nome = :nome AND telefone = :telefone AND email = :email";
                 // fields to bind
-                $fields = array (':'.$field => $value);                
+                $fields = array (
+                    ':idUsuario' => $idUsuario,
+                    ':nome' => $nome,
+                    ':telefone' => $telefone,
+                    ':email' => $email
+                );                
 
                 $this->conexao->connect();    
                 $stmt = $this->conexao->prepareQuery($query, $fields);                
@@ -136,7 +141,7 @@
                 throw new Exception($ex->getMessage());
             }
             return $retorno;
-        }*/        
+        }       
 
 
         /**

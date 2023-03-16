@@ -23,37 +23,38 @@ function logar(event){
     });
 };
 
-function successLogin(response){
-    if(response.status_code == 0){
-        console.log(response.message);
+function successLogin(request){
+    if(request.status_code == 0){
+        $("#msgErro").html(request.message);
+        $("#modalErro").modal("show");
     } else{
         const controllerUrl = "../util/autenticacao.php";
         $.ajax({
             url: controllerUrl,
             type: "POST",
-            data: {idUsuario: response[0].idUsuario, nome: response[0].nome, foto: response[0].foto},   
+            data: {idUsuario: request[0].idUsuario, nome: request[0].nome, foto: request[0].foto},   
             success: successSession,
             error: errorSession
         });
     }
 }
 
-function errorLogin(response){
-    console.log(response);
-    //colocar aqui um modal de alerta de erro no login
+function errorLogin(request, status, error){
+    $("#msgErro").html('Ocorreu um erro ao tentar efetuar o login.<br>Mensagem: ' + error + '<br>Status ' + request.status + ': ' + request.statusText);
+    $("#modalErro").modal("show");
 }
 
-function successSession(response){
-    let session = JSON.parse(response);
+function successSession(data){
+    let session = JSON.parse(data);
     if(session.status_code == 1){
         window.location.href = "../view/boas-vindas.php";
     } else{
-        console.log(session);
-        //colocar aqui um modal de alerta de insucesso
+        $("#msgErro").html('Ocorreu um erro ao tentar iniciar a sessão.<br>Mensagem: ' + session.message);
+        $("#modalErro").modal("show");
     }    
 }
 
-function errorSession(response){
-    console.log(response);
-    //colocar aqui um modal de alerta de erro
+function errorSession(request, status, error){
+    $("#msgErro").html('Ocorreu um erro ao iniciar a sessão.<br>Mensagem: ' + error + '<br>Status ' + request.status + ': ' + request.statusText);
+    $("#modalErro").modal("show");
 }

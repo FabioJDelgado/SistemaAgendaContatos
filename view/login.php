@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" href="../public/css/geral.css">
     <link rel="stylesheet" href="../public/css/login.css">
+    <link rel="stylesheet" href="../public/css/modais.css">
 
     <!-- Bootstrap CDN CSS -->    
     <?php echo GlobalConfig::$BOOTSTRAP_CSS_CDN ?>
@@ -40,9 +41,13 @@
         </form>
     </div>
 
+    <?php include_once  './modal-erro.php'?>
+    <?php include_once  './modal-sucesso.php'?>
+
     <!-- Footer include -->
     <?php include_once  './footer.php'?>
-
+    
     <script src="../public/js/login.js"></script>
+    <script src="../public/js/modal-sucesso.js"></script>
 </body>
 </html>

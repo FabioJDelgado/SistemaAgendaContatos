@@ -71,7 +71,7 @@
         private function handleGetRequest($_acao) {
             switch($_acao) {
                 case 'listar':
-                    $this->buscarTodosProdutos();
+                    $this->buscarTodosContatoUsuario();
                 break;
                 // poderiam existir outras ações a serem executadas com GET
                 default:
@@ -157,18 +157,43 @@
         }
 
         public function buscarTodosContatoUsuario() {
-            $produtos = [];
+            $contatos = [];
             try {
                 $contatos = $this->daoContato->buscarTodosContatosPorUsuario($this->idUsuarioSession);
                 echo json_encode($contatos);
             } catch (Exception $ex) {
-                echo json_encode(array('message' => 'Uma exceção ocorreu ao tentar buscar os produtos.<br>Mensagem: '.$ex->getMessage(), 'status_code' => 0));
+                echo json_encode(array('message' => 'Uma exceção ocorreu ao tentar buscar os contatos.<br>Mensagem: '.$ex->getMessage(), 'status_code' => 0));
             }
         }
 
         public function atualizar() {
             try {
-                echo json_encode(array('message' => 'Produto atualizado com sucesso', 'status_code' => 1));
+                extract($_POST);
+                $contatoRet = $this->daoContato->buscarContatoId($idContatoAtt);
+                if($contatoRet){     
+                    $foto = "";
+                    if(!(is_uploaded_file($_FILES['fotoAtt']['tmp_name']))){
+                        $foto = $contatoRet[0]['foto'];
+                    } else {
+                        $fotoUpload = $this->uploadFoto($_FILES['fotoAtt'], $nomeAtt, $telefoneAtt, $emailAtt);
+                        if(!(empty($fotoUpload))){
+                            unlink($contatoRet[0]['foto']);
+                            $foto = $fotoUpload;
+                        }
+                    }
+                    if(!(empty($foto))){
+                        $contato = new Contato($idContatoAtt, $nomeAtt, $telefoneAtt, $emailAtt, $foto);
+                        if($this->daoContato->atualizarContato($contato)) {
+                            echo json_encode(array('message' => 'Contato atualizado com sucesso!', 'status_code' => 1));
+                        } else {
+                            echo json_encode(array('message' => 'Ocorreu um erro ao tentar atualizar o contato.', 'status_code' => 0));
+                        }
+                    }  else{
+                        echo json_encode(array('message' => 'Ocorreu um erro ao tentar realizar o upload da foto.', 'status_code' => 0));
+                    }                      
+                } else {
+                    echo json_encode(array('message' => 'Não é possível atualizar um contato inexistente.', 'status_code' => 0));
+                }
             } catch (Exception $ex) {
                 echo json_encode(array('message' => 'Uma exceção ocorreu ao tentar atualizar o produto.<br>Mensagem: '.$ex->getMessage(), 'status_code' => 0));
             }
@@ -176,9 +201,20 @@
         
         public function deletar() {
             try {
-                echo json_encode(array('message' => 'Produto excluído com sucesso', 'status_code' => 1));
+                extract($_POST);
+                $contatoRet = $this->daoContato->buscarContatoId($idContato);
+                if($contatoRet){     
+                        if($this->daoContato->deletarContato($idContato)) {
+                            unlink($contatoRet[0]['foto']);
+                            echo json_encode(array('message' => 'Contato excluído com sucesso', 'status_code' => 1));
+                        } else {
+                            echo json_encode(array('message' => 'Ocorreu um erro ao tentar excluir o contato.', 'status_code' => 0));
+                        }
+                } else {
+                    echo json_encode(array('message' => 'Não é possível excluir um contato inexistente.', 'status_code' => 0));
+                }
             } catch (Exception $ex) {
-                echo json_encode(array('message' => 'Uma exceção ocorreu ao tentar excluir o produto.<br>Mensagem: '.$ex->getMessage(), 'status_code' => 0));
+                echo json_encode(array('message' => 'Uma exceção ocorreu ao tentar excluir o contato.<br>Mensagem: '.$ex->getMessage(), 'status_code' => 0));
             }
         }
 

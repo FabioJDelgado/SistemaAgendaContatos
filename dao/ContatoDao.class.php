@@ -75,24 +75,18 @@
          * Ex.: array('nome' => 'novoNome', 'categoria' => novaCategoria);
          * @return boolean: Retorna true se o produto pôde ser atualizado com sucesso e false caso contrário
          */
-        public function atualizarContato($idContato, $fields) {
+        public function atualizarContato($contato) {
             $retorno = false;
-            $query = "UPDATE produto SET ";
-
-            // construindo a query dinamicamente
-            foreach($fields as $field => $newValue) {                     
-
-                // single quotes for string types
-                gettype($newValue) === 'string' ? $query .= $field." = '".$newValue."'" : $query .= $field." = ".$newValue;
-
-                // Se não for o último campo, então coloca vírgula
-                if ($field !== array_key_last($fields)) $query .= ", ";
-            }            
-
-            $query .= " WHERE idContato = :idContato";
+            $query = "UPDATE contato SET nome = :nome, telefone = :telefone, email = :email, foto = :foto WHERE idContato = :idContato";
 
             // fields to bind
-            $fields = array (':idContato' => $idContato);
+            $fields = array (
+                ':nome' => $contato->get('nome'),
+                ':telefone' => $contato->get('telefone'),
+                ':email' => $contato->get('email'),
+                ':foto' => $contato->get('foto'),
+                ':idContato' => $contato->get('idContato')
+            );
 
             try {
                 $this->conexao->connect();    
@@ -172,13 +166,10 @@
          * @param $idProduto: Id a ser procurado
          * @return array: Array Associativo contendo o produto buscado ou uma array vazio caso contrário
          */
-        /*public function buscarUsuarioLogin($login, $senha) {
-            $query = "SELECT * FROM usuario WHERE login = :login AND senha = :senha";                       
+        public function buscarContatoId($idContato) {
+            $query = "SELECT * FROM contato WHERE idContato = :idContato";                       
             // fields to bind
-            $fields = array(
-                ':login' => $login, 
-                ':senha' => hash('sha256', $senha)
-            );
+            $fields = array(':idContato' => $idContato);
             // array return
             $arr = [];            
             try {
@@ -189,7 +180,7 @@
                 throw new Exception($ex->getMessage());
             }
             return $arr;            
-        }*/
+        }
     }
 
 ?>

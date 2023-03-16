@@ -1,0 +1,12 @@
+.form-atualiza-contato{
+    padding: 0 30px 20px 30px;
+}
+
+#divFotoAtual{
+    display: flex;
+    flex-direction: column;
+}
+
+#divNovaFoto{
+    margin-top: 12px;
+}

@@ -23,15 +23,16 @@ $(function(){
 
 function successCadUsario(data) {
     if(data.status_code === 0){
-        console.log("Erro: " + data.message);
-        //colocar aqui um modal de alerta de insucesso
+        $("#msgErro").html('Ocorreu um erro ao tentar cadastrar o usuário.<br>Mensagem: ' + data.message);
+        $("#modalErro").modal("show");
     } else{
         console.log("Sucesso: " + data.message);
-        //colocar aqui um modal de alerta de sucesso
+        $("#msgSucesso").html(data.message);
+        $("#modalSucesso").modal("show");
     }
 }
 
 function erroCadUsuario(request, status, error) {
-    console.log(request.responseText);
-    //colocar aqui um modal de alerta de erro
+    $("#msgErro").html('Ocorreu um erro no cadastro do usuário.<br>Mensagem: ' + error + '<br>Status ' + request.status + ': ' + request.statusText);
+    $("#modalErro").modal("show");
 }

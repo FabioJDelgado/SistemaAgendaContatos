@@ -1,3 +1,7 @@
 .form-cad-contato{
     padding: 0 30px 20px 30px;
 }
+
+input[type="file"]{
+    height: 43px;
+}

@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../public/css/geral.css">
     <link rel="stylesheet" href="../public/css/cad-contato.css">
     <link rel="stylesheet" href="../public/css/modais.css">
+    <link rel="stylesheet" href="../public/css/header.css">
 
     <!-- Bootstrap CDN CSS -->    
     <?php echo GlobalConfig::$BOOTSTRAP_CSS_CDN ?>

@@ -1,5 +1,5 @@
 <?php
-
+    // inicia a sessao para armazenar os dados do usuario
     session_start();
 
     $_SESSION['idUsuario'] = $_POST['idUsuario'];

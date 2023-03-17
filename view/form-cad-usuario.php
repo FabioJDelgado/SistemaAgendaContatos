@@ -41,15 +41,18 @@
                 <input type="password" class="form-control" id="senha" name="senha" required="true">
             </div>
             <div class="form-group">
+                <label for="senhaRe">Repita a senha</label>
+                <input type="password" class="form-control" id="senhaRe" name="senhaRe" required="true">
+            </div>
+            <div class="form-group">
                 <label for="foto">Foto</label>
-                <input type="file" class="form-control input-file" id="foto" name="foto" required="true" accept="image/png,image/jpeg,image/jpg">
+                <div class="input-file">
+                    <input type="file" class="form-control" id="foto" name="foto" required="true" accept="image/png,image/jpeg,image/jpg">
+                </div>    
             </div>
             <input hidden type="text" name="_acao" value="cadastrar">
             <button type="submit" class="btn btn-primary" id="btnCadastrar">Cadastrar</button>
-            <div class="a-cadastro">
-                <spam>Já possui cadastro?</spam>
-                <a href="./login.php" class="btn btn-link" id="btnCadastro">Logar</a>
-            </div>
+            <label class="a-cadastro">Já possui cadastro? <a href="./login.php" id="btnCadastro">Logar</a></label>     
         </form>
     </div>
 

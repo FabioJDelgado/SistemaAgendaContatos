@@ -1,18 +1,22 @@
 <?php 
+    // PDO
     include_once 'ConexaoPDO.class.php';
         
     class ContatoDao {        
+        // atributo 
         private $conexao;
-
+        
+        // construtor da classe
         public function __construct() {
             $this->conexao = new ConexaoPDO();
         }
 
         /**
          * Summary:
-         * Método que tem por objetivo cadastrar um novo produto no banco de dados
-         * @param $produto: Objeto da classe Produto a ser cadastrado
-         * @param boolean: Retorna true se o produto foi inserido com sucesso 
+         * Método que tem por objetivo cadastrar um novo contato no banco de dados
+         * @param $idUsuario: Id do usuário que está cadastrando o contato
+         * @param $contato: Objeto da classe contato a ser cadastrado
+         * @param boolean: Retorna true se o contato foi inserido com sucesso 
          * ou false caso contrário
          */
         public function cadastrarContato($idUsuario, $contato) {
@@ -42,9 +46,9 @@
         }
 
         /**
-         * Método que tem por objetivo deletar um produto com o id passado por parâmetro
-         * @param $idProduto: Id do produto a ser deletado
-         * @return boolean: Retorna true se o produto foi excluído com sucesso or false caso contrário. 
+         * Método que tem por objetivo deletar um contato com o id passado por parâmetro
+         * @param $idContato: Id do contato a ser deletado
+         * @return boolean: Retorna true se o contato foi excluído com sucesso or false caso contrário. 
          * Variável $result guarda o número de linhas afetadas pela consulta
          */
         public function deletarContato($idContato) {
@@ -69,11 +73,9 @@
         } 
         
         /**
-         * Método que tem por objetivo realizar a atualização de um produto.
-         * @param $idProduto: Id do produto a ser atualizado
-         * @param $fields: Array associativo contendo os campos e os novos valores a serem atualizados
-         * Ex.: array('nome' => 'novoNome', 'categoria' => novaCategoria);
-         * @return boolean: Retorna true se o produto pôde ser atualizado com sucesso e false caso contrário
+         * Método que tem por objetivo realizar a atualização de um contato.
+         * @param $contato: Objeto da classe contato a ser atualizado
+         * @return boolean: Retorna true se o contato pôde ser atualizado com sucesso e false caso contrário
          */
         public function atualizarContato($contato) {
             $retorno = false;
@@ -104,9 +106,11 @@
         
         /**
          * Summary: Método que tem por objetivo verificar se um determinado 
-         * produto existe com base no campo e valor passados por parâmetro
-         * @param $field: campo
-         * @param $value: valor
+         * contato existe com base nos parâmetros passados
+         * @param $idUsuario: usuário que está cadastrando o contato
+         * @param $nome: nome do contato
+         * @param $telefone: telefone do contato
+         * @param $email: email do contato
          * @return boolean: Retorna true se o objeto com o valor equivalente ao campo existe, false caso contrário
          */
         public function contatoUsuarioExiste($idUsuario, $nome, $telefone, $email) {
@@ -140,10 +144,10 @@
 
         /**
          * Summary:
-         * Método que busca todos os produtos cadastrados na base de dados.
-         * @param nenhum
+         * Método que busca todos os contato cadastrados na base de dados.
+         * @param $idUsuario: Id do usuário que está cadastrando o contato
          * @return array: Retorna uma array associativo do tipo arr(key -> value) com os 
-         * dados do produto, ou um array vazio caso nenhum produto seja encontrado
+         * dados do contato, ou um array vazio caso nenhum contato seja encontrado
          */
         public function buscarTodosContatosPorUsuario($idUsuario) {
             $query = "SELECT * FROM contato WHERE idUsuario = :idUsuario ORDER BY nome ASC";                       
@@ -162,9 +166,9 @@
         }
         
         /**
-         * Buscar um produto por id passado como parâmetro
-         * @param $idProduto: Id a ser procurado
-         * @return array: Array Associativo contendo o produto buscado ou uma array vazio caso contrário
+         * Buscar um contato por id passado como parâmetro
+         * @param $idContato: Id a ser procurado
+         * @return array: Array Associativo contendo o contato buscado ou uma array vazio caso contrário
          */
         public function buscarContatoId($idContato) {
             $query = "SELECT * FROM contato WHERE idContato = :idContato";                       

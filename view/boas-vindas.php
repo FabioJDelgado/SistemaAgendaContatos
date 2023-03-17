@@ -19,7 +19,7 @@
     <link rel="icon" href=<?php echo '"'.GlobalConfig::$DEFAULT_DIR.'/'.GlobalConfig::$ASSETS_DIR.'/'.'favicon.ico"'; ?> >   
 
     <link rel="stylesheet" href="../public/css/geral.css">
-    <link rel="stylesheet" href="../public/css/boas-vindas.css">
+    <link rel="stylesheet" href="../public/css/header.css">
 
     <!-- Bootstrap CDN CSS -->    
     <?php echo GlobalConfig::$BOOTSTRAP_CSS_CDN ?>
@@ -34,7 +34,7 @@
         </div>
         <hr>
         
-        <h4 class="text-center msg-inicial">Sistema de Agenda</h4>
+        <h5 class="text-center">Sistema de Agenda</h5>
         
     </div>
 

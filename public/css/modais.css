@@ -3,9 +3,13 @@
 }
 
 .cor-verde{
-    background-color: #00ff00;
+    background-color: #62d162;
 }
 
 .cor-branca{
     color: #ffffff;
+}
+
+input[type="file"]{
+    height: 43px;
 }

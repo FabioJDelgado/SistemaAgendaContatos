@@ -37,7 +37,7 @@
             </div>
             <input hidden type="text" name="_acao" value="logar">
             <button type="submit" class="btn btn-primary" id="btnLogar">Entrar</button>
-            <a href="./form-cad-usuario.php" class="btn btn-link a-cadastro" id="btnCadastro">Cadastre-se</a>
+            <a href="./form-cad-usuario.php" class="a-cadastro" id="btnCadastro">Cadastre-se</a>
         </form>
     </div>
 
